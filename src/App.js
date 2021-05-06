@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Import Pages
+import LandingPage from "./pages/LandingPage"
+import ChatRoom from "./pages/ChatRoom"
+
+// Import Socket io
+import Socket from "socket.io-client"
+const io = Socket ("http://localhost:5000")
+
+
+class App extends React.Component {
+
+  state = {
+    username: null,
+    room: null
+  }
+
+  onChangeState = (username, room) => {
+    this.setState ({username: username, room: room})
+
+  }
+
+
+  render () {
+
+    if (this.state.username === null) {
+      return (
+        <LandingPage io={io} onSubmitButton={this.onChangeState}></LandingPage>
+      )
+    }
+
+    return (
+      <ChatRoom io={io} username={this.state.username} room={this.state.room}></ChatRoom>
+    )
+  }
 }
 
 export default App;
