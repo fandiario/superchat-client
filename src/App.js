@@ -6,7 +6,8 @@ import ChatRoom from "./pages/ChatRoom"
 
 // Import Socket io
 import Socket from "socket.io-client"
-const io = Socket ("http://localhost:5000")
+// const io = Socket ("http://localhost:5000")
+const io = Socket ("https://superchat-server-app.herokuapp.com/")
 
 
 class App extends React.Component {
